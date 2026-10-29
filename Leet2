@@ -1,0 +1,28 @@
+int cmp(const void *a,const void *b){
+    return (*(char*)a - *(char *)b);
+}
+char* orderlyQueue(char* s,int k){
+    int n = strlen(s);
+if (k == 1){
+    char *result = (char *)malloc((n+1)*sizeof(char));
+    strcpy(result,s);
+for (int i=1;i<n;i++){
+    char temp[n+1];
+    int idx=0;
+    for(int j=i;j<n;j++)
+        temp[idx++] = s[j];
+        for(int j=0;j<i;j++)
+        temp[idx++] = s[j];
+        temp[idx] = '\0';
+if(strcmp(temp,result)<0){
+    strcpy(result,temp);
+}
+ }
+        return result;
+    }
+    char *result = (char *)malloc((n + 1) * sizeof(char));
+    strcpy(result, s);
+    qsort(result, n, sizeof(char), cmp);
+
+    return result;
+}

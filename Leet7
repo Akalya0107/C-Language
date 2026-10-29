@@ -1,0 +1,27 @@
+typedef struct TreeNode Node;
+void Search(Node *start, Node **pre, Node **one, Node **two);
+void recoverTree(struct TreeNode* root){
+    Node *one = NULL;
+    Node *two = NULL;
+    Node *pre = NULL;
+    Search(root, &pre, &one, &two);
+    if(one && two){
+        int tmp = 0;
+        tmp = one->val;
+        one->val = two->val;
+        two->val = tmp;
+    }
+}
+void Search(Node *cur, Node **pre, Node **one, Node **two){
+    if(cur == NULL) return;
+    Search(cur->left, pre, one, two);
+    if(*pre && cur->val < (*pre)->val){
+        if(*one == NULL && *two == NULL){*one = *pre;
+            *two = cur;
+        }else{
+            *two = cur;
+        }
+    }
+    *pre = cur;
+    Search(cur->right, pre, one, two);
+}
